@@ -1,0 +1,10 @@
+{
+    "name": "swAngular-Popover",
+    "version": "1.0.0",
+    "main": "swAngular-Popover.js",
+    "ignore": [ ],
+    "dependencies": {
+        "bootstrap": "~3.0.3"
+    },
+    "devDependencies": { }
+}
