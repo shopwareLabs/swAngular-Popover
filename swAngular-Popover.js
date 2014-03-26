@@ -7,23 +7,7 @@ angular.module('swAngularPopover', [])
                 url: '@swUrl',
                 options: '=swOptions'
             },
-            link: function ($scope, $element, $attrs) {
-                var contentElement;
-                if ($scope.url && $scope.url.length > 0) {
-                    /*
-                     * need two capsulating elements
-                     * probably because:
-                     *  - contents() dismisses one layer
-                     *  - <div ng-include>-element is compiled to comment
-                     *  - popover dismisses comments without encapsulating html element
-                     */
-                    contentElement = angular.element('<div><div><div ng-include="\'' + $scope.url + '\'"></div></div></div>');
-                } else {
-                    contentElement = angular.element('<span>' + $scope.content + '</span>');
-                }
-
-                $compile(contentElement)($scope.$parent);
-
+            link: function ($scope, $element) {
                 var htmlParam = true;
                 var animationParam = true;
                 var placementParam = 'auto';
@@ -60,16 +44,47 @@ angular.module('swAngularPopover', [])
                     }
                 }
 
-                $element.popover({
-                    html: htmlParam,
-                    content: contentElement.contents(),
-                    animation: animationParam,
-                    placement: placementParam,
-                    trigger: triggerParam,
-                    title: titleParam,
-                    delay: delayParam,
-                    container: containerParam
+                var contentElement;
+                if ($scope.url && $scope.url.length > 0) {
+                    /*
+                     * need two capsulating elements
+                     * probably because:
+                     *  - contents() dismisses one layer
+                     *  - <div ng-include>-element is compiled to comment
+                     *  - popover dismisses comments without encapsulating html element
+                     */
+                    contentElement = angular.element('<div><div><div ng-include="\'' + $scope.url + '\'"></div></div></div>');
+                } else {
+                    contentElement = angular.element('<span>' + $scope.content + '</span>');
+                }
+                $compile(contentElement)($scope.$parent);
+
+                // Store contents
+                var contents = contentElement.contents();
+
+                var isShown = false;
+                $element.bind(triggerParam, function () {
+                    if (!isShown) {
+
+                        $element.popover({
+                            html: htmlParam,
+                            content: contents,
+                            animation: animationParam,
+                            placement: placementParam,
+                            trigger: 'manual',
+                            title: titleParam,
+                            delay: delayParam,
+                            container: containerParam
+                        });
+                        $element.popover('show');
+                        isShown = true;
+                    } else {
+                        $element.popover('destroy');
+                        isShown = false;
+                    }
                 });
+
+
             }
         }
     });
