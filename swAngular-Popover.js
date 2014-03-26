@@ -1,13 +1,26 @@
 angular.module('swAngularPopover', [])
-    .directive('swAngularPopover', function ($compile, $sce) {
+    .service('swPopoverService', function() {
+        var popoverRepository = {};
+
+        return {
+            popoverRepository: popoverRepository,
+            close: function(id) {
+                popoverRepository[id].popover('destroy');
+            }
+        };
+    })
+    .directive('swAngularPopover', function (swPopoverService, $compile, $sce) {
         return {
             restrict: 'A',
             scope: {
                 content: '@swAngularPopover',
                 url: '@swUrl',
-                options: '=swOptions'
+                options: '=swOptions',
+                popoverId: '@swPopoverId'
             },
             link: function ($scope, $element) {
+                swPopoverService.popoverRepository[$scope.popoverId] = $element;
+
                 var htmlParam = true;
                 var animationParam = true;
                 var placementParam = 'auto';
@@ -76,15 +89,17 @@ angular.module('swAngularPopover', [])
                             delay: delayParam,
                             container: containerParam
                         });
+                        $element.on('shown.bs.popover', function() {
+                            isShown = true;
+                        });
+                        $element.on('hidden.bs.popover', function() {
+                            isShown = false;
+                        });
                         $element.popover('show');
-                        isShown = true;
                     } else {
                         $element.popover('destroy');
-                        isShown = false;
                     }
                 });
-
-
             }
         }
     });
