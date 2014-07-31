@@ -63,10 +63,10 @@ angular.module('swAngularPopover', [])
                      * need two capsulating elements
                      * probably because:
                      *  - contents() dismisses one layer
-                     *  - <div ng-include>-element is compiled to comment
+                     *  - <div data-ng-include>-element is compiled to comment
                      *  - popover dismisses comments without encapsulating html element
                      */
-                    contentElement = angular.element('<div><div><div ng-include="\'' + $scope.url + '\'"></div></div></div>');
+                    contentElement = angular.element('<div><div><div data-ng-include="\'' + $scope.url + '\'"></div></div></div>');
                 } else {
                     contentElement = angular.element('<span>' + $scope.content + '</span>');
                 }
