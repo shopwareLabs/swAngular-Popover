@@ -10,7 +10,7 @@
     "url": "git://github.com/cAhmad/swAngular-Popover.git"
   },
   "dependencies": {
-    "bootstrap": "~3.0.3"
+    "bootstrap": "^3.3.6"
   },
   "homepage": "https://github.com/cAhmad/swAngular-Popover#README.md"
 }
