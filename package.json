@@ -1,0 +1,16 @@
+{
+  "author": "shopwareLabs",
+  "contributors": ["cAhmad"],
+  "name": "sw-angular-popover",
+  "keywords": ["angular", "popover"],
+  "version": "2.0.1",
+  "main": "swAngular-Popover.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cAhmad/swAngular-Popover.git"
+  },
+  "dependencies": {
+    "bootstrap": "~3.0.3"
+  },
+  "homepage": "https://github.com/cAhmad/swAngular-Popover#README.md"
+}
