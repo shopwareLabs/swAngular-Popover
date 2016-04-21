@@ -4,7 +4,7 @@
     "main": "swAngular-Popover.js",
     "ignore": [],
     "dependencies": {
-        "bootstrap": "~3.0.3"
+        "bootstrap": "^3.3.6"
     },
     "devDependencies": {}
 }
